@@ -10,9 +10,9 @@
 
 ### 1.2 集中式vs分布式
 
-![](./pic/集中式.png)
+![](./pic/distributed.png)
 
-![](./pic/分布式.png)
+![](./pic/centralized.png)
 
 ## 2. 时光穿梭机
 
