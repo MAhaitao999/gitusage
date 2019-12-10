@@ -259,6 +259,7 @@ Git is free software distributed under the GPL.
 
 git的版本回退速度非常快, 因为git在内部有个指向当前版本的HEAD指针, 当你回退版本的时候, git仅仅是把HEAD从指向`append GPL`:
 
+```
 ┌────┐
 │HEAD│
 └────┘
@@ -268,9 +269,11 @@ git的版本回退速度非常快, 因为git在内部有个指向当前版本的
         ○ add distributed
         │
         ○ wrote a readme file
+```
 
 改为指向`add distributed`:
 
+```
 ┌────┐
 │HEAD│
 └────┘
@@ -280,6 +283,7 @@ git的版本回退速度非常快, 因为git在内部有个指向当前版本的
    └──> ○ add distributed
         │
         ○ wrote a readme file
+```
 
 然后顺便把工作区的文件更新了. 所以你让HEAD指向哪个版本号, 你就把当前版本定位在哪.
 
