@@ -410,6 +410,31 @@ nothing to commit, working tree clean
 
 暂存区是git非常重要的概念, 弄明白了暂存区, 就弄明白了git的很多操作到底在干什么.
 
+### 2.3 管理修改
+
+现在, 假定你已经完全掌握了暂存区的概念. 下面, 我们要讨论的就是, 为什么git比其他版本控制系统设计得优秀, 因为git跟踪并管理的是修改, 而非文件.
+
+你会问, 什么是修改? 比如你新增了一行, 这就是一个修改, 删除了一行, 也是一个修改, 更改了某些字符, 也是一个修改, 删了一些又加了一些, 也是一个修改, 甚至创建一个新文件, 也算一个修改. 为什么说git管理的是修改, 而不是文件呢? 我们还是做实验. 第一步, 对readme.txt做一些修改, 比如加一行内容:
+
+```
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+```
+然后, 添加:
+
+```
+$ git add readme.txt
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       modified:   readme.txt
+#
+```
 
 ## 3. 远程仓库
 
