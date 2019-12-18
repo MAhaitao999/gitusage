@@ -406,7 +406,7 @@ nothing to commit, working tree clean
 
 ![](./pic/git_commit.png)
 
-- 小结
+小结
 
 暂存区是git非常重要的概念, 弄明白了暂存区, 就弄明白了git的很多操作到底在干什么.
 
