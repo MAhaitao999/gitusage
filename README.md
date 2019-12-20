@@ -301,7 +301,7 @@ eaadf4e HEAD@{4}: commit (initial): wrote a readme file
 
 终于舒了口气, 从输出可知, `append GPL`的`commit id`是`1094adb`, 现在, 你又可以乘坐时光机回到未来了.
 
-小结:
+**小结**
 
 - `HEAD`指向的版本就是当前版本, 因此, git允许我们在版本的历史之间穿梭, 使用命令`git reset --hard commit_id`.
 - 穿梭前, 用`git log`可以查看提交历史, 以便确定要回退到哪个版本.
@@ -406,7 +406,7 @@ nothing to commit, working tree clean
 
 ![](./pic/git_commit.png)
 
-小结
+**小结**
 
 暂存区是git非常重要的概念, 弄明白了暂存区, 就弄明白了git的很多操作到底在干什么.
 
@@ -497,7 +497,7 @@ index 76d770f..a9c5755 100644
 
 好, 现在, 把第二次修改提交了, 然后开始小结.
 
-小结
+**小结**
 
 现在, 你又理解了git是如何跟踪修改的, 每次修改，如果不用`git add`到暂存区, 那就不会加入到`commit`中.
 
@@ -602,7 +602,7 @@ nothing to commit, working tree clean
 
 现在, 假设你不但改错了东西, 还从暂存区提交到了版本库, 怎么办呢? 还记得版本回退一节吗? 可以回退到上一个版本. 不过, 这是有条件的, 就是你还没有把自己的本地版本库推送到远程. 还记得git是分布式版本控制系统吗? 我们后面会讲到远程版本库, 一旦你把`stupid boss`提交推送到远程版本库, 你就真的惨了......
 
-小结
+**小结**
 
 又到了小结时间.
 
@@ -672,7 +672,7 @@ $ git checkout -- test.txt
 
 > 注意: 从来没有被添加到版本库就被删除的文件, 是无法恢复的!
 
-小结
+**小结**
 
 命令`git rm`用于删除一个文件. 如果一个文件已经被提交到版本库, 那么你永远不用担心误删, 但是要小心, 你只能恢复文件到最新版本, 你会丢失**最近一次提交后你修改的内容**.
 
@@ -727,7 +727,7 @@ ssh-keygen -t rsa -C "youremail@example.com"
 
 确保你拥有一个gitHub账号后, 我们就即将开始远程仓库的学习.
 
-小结
+**小结**
 
 "有了远程仓库, 妈妈再也不用担心我的硬盘了. "——git点读机
 
@@ -786,7 +786,7 @@ $ git push origin master
 
 把本地`master`分支的最新修改推送至gitHub, 现在, 你就拥有了真正的分布式版本库!
 
-SSH警告
+**SSH警告**
 
 当你第一次使用git的clone或者push命令连接gitHub时, 会得到一个警告:
 
@@ -808,7 +808,7 @@ Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
 
 如果你实在担心有人冒充gitHub服务器, 输入`yes`前可以对照gitHub的RSA Key的指纹信息是否与SSH连接给出的一致.
 
-小结
+**小结**
 
 要关联一个远程库, 使用命令`git remote add origin git@server-name:path/repo-name.git`;
 
@@ -856,7 +856,7 @@ README.md
 
 使用`https`除了速度慢以外, 还有个最大的麻烦是每次推送都必须输入口令, 但是在某些只开放http端口的公司内部就无法使用`ssh`协议而只能用`https`.
 
-小结
+**小结**
 
 要克隆一个仓库, 首先必须知道仓库的地址, 然后使用`git clone`命令克隆.
 
@@ -1016,7 +1016,7 @@ $ git switch master
 
 使用新的`git switch`命令, 比`git checkout`要更容易理解.
 
-小结
+**小结**
 
 git鼓励大量使用分支:
 
@@ -1179,13 +1179,91 @@ Deleted branch feature1 (was 14096d0).
 工作完成.
 
 
-小结:
+**小结**
 
 当git无法自动合并分支时, 就必须首先解决冲突. 解决冲突后, 再提交, 合并完成.
 
 解决冲突就是把git合并失败的文件手动编辑为我们希望的内容, 再提交.
 
 用`git log --graph`命令可以看到分支合并图.
+
+### 4.3 分支管理策略
+
+通常, 合并分支时, 如果可能, git会用`fast forward`模式, 但是这种模式下, 删除分支后, 会丢失分支信息.
+
+如果要强制禁用`Fast forward`模式, git就会在`merge`时生成一个新的`commit`, 这样, 从分支历史上就可以看出分支信息.
+
+下面我们实战一下`--no-ff`方式的`git merge`:
+
+首先, 仍然创建并切换`dev`分支:
+
+```
+$ git switch -c dev
+Switched to a new branch 'dev'
+```
+修改`readme.txt`文件, 并提交一个新的`commit`:
+
+```
+$ git add readme.txt 
+$ git commit -m "add merge"
+[dev f52c633] add merge
+ 1 file changed, 1 insertion(+)
+```
+
+现在, 我们切换回`master`:
+
+```
+$ git switch master
+Switched to branch 'master'
+```
+准备合并`dev`分支, 请注意`--no-ff`参数, 表示禁用`Fast forward`:
+
+```
+$ git merge --no-ff -m "merge with no-ff" dev
+Merge made by the 'recursive' strategy.
+ readme.txt | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+因为本次合并要创建一个新的`commit`, 所以加上`-m`参数, 把`commit`描述写进去.
+
+合并后, 我们用`git log`看看分支历史:
+
+```
+$ git log --graph --pretty=oneline --abbrev-commit
+*   e1e9c68 (HEAD -> master) merge with no-ff
+|\
+| * f52c633 (dev) add merge
+|/
+*   cf810e4 conflict fixed
+...
+```
+
+可以看到, 不使用`Fast forward`模式, `merge`后就像这样:
+
+![](./pic/branch9.png)
+
+**分支策略**
+
+在实际开发中, 我们应该按照几个基本原则进行分支管理:
+
+首先, `master`分支应该是非常稳定的, 也就是仅用来发布新版本, 平时不能在上面干活;
+
+那在哪干活呢? 干活都在`dev`分支上, 也就是说, `dev`分支是不稳定的, 到某个时候, 比如1.0版本发布时, 再把`dev`分支合并到`master`上, 在`master`分支发布1.0版本;
+
+你和你的小伙伴们每个人都在`dev`分支上干活, 每个人都有自己的分支, 时不时地往`dev`分支上合并就可以了.
+
+所以, 团队合作的分支看起来就像这样:
+
+![](./pic/branch10.png)
+
+**小结**
+
+git分支十分强大, 在团队开发中应该充分利用.
+
+合并分支时, 加上`--no-ff`参数就可以用普通模式合并, 合并后的历史有分支, 能看出来曾经做过合并, 而`fast forward`合并就看不出来曾经做过合并.
+
+
 
 ## 5. 标签管理
 
