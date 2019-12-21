@@ -2010,6 +2010,106 @@ diff --git a/readme.txt b/readme.txt
 
 - 命令`git tag`可以查看所有标签.
 
-## 6. 自定义git
+### 5.2 操作标签
+
+如果标签打错了, 也可以删除:
+
+```
+$ git tag -d v0.1
+Deleted tag 'v0.1' (was f15b0dd)
+```
+
+因为创建的标签都只存储在本地, 不会自动推送到远程. 所以, 打错的标签可以在本地安全删除.
+
+如果要推送某个标签到远程, 使用命令`git push origin <tagname>`:
+
+```
+$ git push origin v1.0
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:michaelliao/learngit.git
+ * [new tag]         v1.0 -> v1.0
+```
+
+或者, 一次性推送全部尚未推送到远程的本地标签:
+
+```
+$ git push origin --tags
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:michaelliao/learngit.git
+ * [new tag]         v0.9 -> v0.9
+```
+
+如果标签已经推送到远程, 要删除远程标签就麻烦一点, 先从本地删除:
+
+```
+$ git tag -d v0.9
+Deleted tag 'v0.9' (was f52c633)
+```
+
+然后, 从远程删除. 删除命令也是push, 但是格式如下:
+
+```
+$ git push origin :refs/tags/v0.9
+To github.com:michaelliao/learngit.git
+ - [deleted]         v0.9
+```
+
+要看看是否真的从远程库删除了标签, 可以登录gitHub查看.
+
+**小结**
+
+- 命令`git push origin <tagname>`可以推送一个本地标签;
+
+- 命令`git push origin --tags`可以推送全部未推送过的本地标签;
+
+- 命令`git tag -d <tagname>`可以删除一个本地标签;
+
+- 命令`git push origin :ref/tags/<tagname>`可以删除一个远程标签.
+
+## 6. 使用gitHub
+
+我们一直用gitHub作为免费的远程仓库, 如果是个人的开源项目, 放到gitHub上是完全没有问题的. 其实gitHub还是一个开源协作社区, 通过gitHub, 既可以让别人参与你的开源项目, 也可以参与别人的开源项目.
+
+在gitHub出现以前, 开源项目开源容易, 但让广大人民群众参与进来比较困难, 因为要参与, 就要提交代码, 而给每个想提交代码的群众都开一个账号那是不现实的, 因此, 群众也仅限于报个bug, 即使能改掉bug, 也只能把diff文件用邮件发过去, 很不方便.
+
+但是在gitHub上, 利用git极其强大的克隆和分支功能, 广大人民群众真正可以第一次自由参与各种开源项目了.
+
+如何参与一个开源项目呢? 比如人气极高的bootstrap项目, 这是一个非常强大的CSS框架, 你可以访问它的项目主页`https://github.com/twbs/bootstrap`, 点"Fork"就在自己的账号下克隆了一个bootstrap仓库, 然后, 从自己的账号下clone:
+
+```
+git clone git@github.com:michaelliao/bootstrap.git
+```
+
+一定要从自己的账号下clone仓库, 这样你才能推送修改. 如果从bootstrap的作者的仓库地址`git@github.com:twbs/bootstrap.git`克隆, 因为没有权限, 你将不能推送修改.
+
+Bootstrap的官方仓库`twbs/bootstrap`、你在gitHub上克隆的仓库`my/bootstrap`, 以及你自己克隆到本地电脑的仓库, 他们的关系就像下图显示的那样:
+
+```
+┌─ GitHub ────────────────────────────────────┐
+│                                             │
+│ ┌─────────────────┐     ┌─────────────────┐ │
+│ │ twbs/bootstrap  │────>│  my/bootstrap   │ │
+│ └─────────────────┘     └─────────────────┘ │
+│                                  ▲                 │
+└──────────────────────────────────┼──────────┘
+                                   ▼
+                          ┌─────────────────┐
+                          │ local/bootstrap │
+                          └─────────────────┘
+```
+
+如果你想修复bootstrap的一个bug, 或者新增一个功能, 立刻就可以开始干活, 干完后, 往自己的仓库推送.
+
+如果你希望bootstrap的官方库能接受你的修改, 你就可以在gitHub上发起一个pull request. 当然, 对方是否接受你的pull request就不一定了.
+
+如果你没能力修改bootstrap, 但又想要试一把pull request, 那就Fork一下我的仓库: `https://github.com/michaelliao/learngit`, 创建一个`your-github-id.txt`的文本文件, 写点自己学习git的心得, 然后推送一个pull request给我, 我会视心情而定是否接受.
+
+**小结**
+
+- 在gitHub上, 可以任意Fork开源仓库;
+
+- 自己拥有Fork后的仓库的读写权限;
+
+- 可以推送pull request给官方仓库来贡献代码.
 
 ## 7. 总结
