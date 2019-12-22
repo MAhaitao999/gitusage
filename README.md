@@ -2632,5 +2632,13 @@ git有很多图形界面工具, 这里我们推荐`SourceTree`, 它是由`Atlass
 
 SourceTree使用git命令执行操作, 出错时, 仍然需要阅读git命令返回的错误信息.
 
+## 10. 期末总结
+
+git cheat sheet:
+
+![](./pic/git_cheat_sheet.png)
+
+![](./pic/git_cheat_sheet2.png)
+
 
 
